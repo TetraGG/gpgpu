@@ -3,6 +3,8 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
+#include <vector>
+
 class VulkanApplication
 {
 public:
@@ -15,6 +17,12 @@ private:
   void mainLoop();
   void cleanup();
 
+  void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo);
+  bool checkValidationLayerSupport();
+  std::vector<const char*> getRequiredExtensions();
+  void setupDebugMessenger();
+
   GLFWwindow* window;
   VkInstance instance;
+  VkDebugUtilsMessengerEXT debugMessenger;
 };

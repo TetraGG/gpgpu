@@ -7,6 +7,7 @@ BIN = particle
 
 SRC = main.cpp \
       vulcan_application.cpp \
+      validation_layers.cpp \
 
 OBJS = $(SRC:.cpp=.o)
 
