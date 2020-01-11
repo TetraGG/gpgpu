@@ -11,8 +11,10 @@ public:
 private:
   void initWindow();
   void initVulkan();
+  void createInstance();
   void mainLoop();
   void cleanup();
 
   GLFWwindow* window;
+  VkInstance instance;
 };
