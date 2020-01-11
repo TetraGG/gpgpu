@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <vector>
 
+#include "devices.hh"
 #include "validation_layers.hh"
 #include "vulcan_application.hh"
 
@@ -34,6 +35,7 @@ void VulkanApplication::initVulkan()
 {
   createInstance();
   setupDebugMessenger();
+  pickPhysicalDevice(instance);
 }
 
 void VulkanApplication::createInstance()
