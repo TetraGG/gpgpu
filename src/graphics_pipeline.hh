@@ -10,8 +10,8 @@ public:
   void createRenderPass(VkDevice& device, VkFormat& swapChainImageFormat);
   void destroyGraphicsPipeline(VkDevice& device);
 
-private:
   VkRenderPass renderPass;
+private:
 
   VkPipelineLayout pipelineLayout;
   VkPipeline graphicsPipeline;

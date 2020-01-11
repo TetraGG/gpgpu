@@ -25,6 +25,7 @@ public:
   void createImageViews(VkDevice& device);
   void createRenderPass(VkDevice& device);
   void createGraphicsPipeline(VkDevice& device);
+  void createFramebuffers(VkDevice& device);
   void destroySwapChain(VkDevice& device);
 private:
   VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
@@ -37,6 +38,8 @@ private:
   std::vector<VkImage> swapChainImages;
   VkFormat swapChainImageFormat;
   VkExtent2D swapChainExtent;
+
+  std::vector<VkFramebuffer> swapChainFramebuffers;
 
   std::vector<VkImageView> swapChainImageViews;
 

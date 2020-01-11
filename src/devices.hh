@@ -15,6 +15,7 @@ public:
   void createImageViews();
   void createRenderPass();
   void createGraphicsPipeline();
+  void createFramebuffers();
   void destroyDevices();
   void destroySwapChain();
 

@@ -122,6 +122,11 @@ void VulkanDevices::createGraphicsPipeline()
   swapChain.createGraphicsPipeline(device);
 }
 
+void VulkanDevices::createFramebuffers()
+{
+  swapChain.createFramebuffers(device);
+}
+
 void VulkanDevices::destroyDevices()
 {
   vkDestroyDevice(device, nullptr);

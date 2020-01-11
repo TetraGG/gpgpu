@@ -45,6 +45,7 @@ void VulkanApplication::initVulkan()
   devices.createImageViews();
   devices.createRenderPass();
   devices.createGraphicsPipeline();
+  devices.createFramebuffers();
 }
 
 void VulkanApplication::createInstance()
