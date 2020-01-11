@@ -40,7 +40,9 @@ void VulkanApplication::initVulkan()
   createSurface();
   devices.pickPhysicalDevice(instance, surface);
   devices.createLogicalDevice(surface);
-  createGraphicsPipeline(devices.device);
+
+  devices.createSwapChain(surface);
+  devices.createGraphicsPipeline();
 }
 
 void VulkanApplication::createInstance()
@@ -93,6 +95,7 @@ void VulkanApplication::mainLoop()
 
 void VulkanApplication::cleanup()
 {
+  devices.destroySwapChain();
   devices.destroyDevices();
 
   if (enableValidationLayers) {

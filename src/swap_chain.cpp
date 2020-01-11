@@ -147,7 +147,18 @@ void VulkanSwapChain::createImageViews(VkDevice& device) {
   }
 }
 
+void VulkanSwapChain::createGraphicsPipeline(VkDevice& device)
+{
+  pipeline.createGraphicsPipeline(device, swapChainExtent);
+}
+
 void VulkanSwapChain::destroySwapChain(VkDevice& device)
 {
+  pipeline.destroyGraphicsPipeline(device);
+
+  for (auto imageView : swapChainImageViews) {
+      vkDestroyImageView(device, imageView, nullptr);
+  }
+
   vkDestroySwapchainKHR(device, swapChain, nullptr);
 }

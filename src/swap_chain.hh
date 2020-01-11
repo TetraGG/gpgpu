@@ -5,6 +5,8 @@
 
 #include <vector>
 
+#include "graphics_pipeline.hh"
+
 const int WIDTH = 800;
 const int HEIGHT = 600;
 
@@ -21,6 +23,7 @@ public:
                        VkDevice& device,
                        VkSurfaceKHR& surface);
   void createImageViews(VkDevice& device);
+  void createGraphicsPipeline(VkDevice& device);
   void destroySwapChain(VkDevice& device);
 private:
   VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
@@ -35,4 +38,6 @@ private:
   VkExtent2D swapChainExtent;
 
   std::vector<VkImageView> swapChainImageViews;
+
+  GraphicsPipeline pipeline;
 };
