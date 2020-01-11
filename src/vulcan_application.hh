@@ -7,6 +7,9 @@
 
 #include "devices.hh"
 
+const int WIDTH = 800;
+const int HEIGHT = 600;
+
 class VulkanApplication
 {
 public:

@@ -10,6 +10,7 @@ SRC = main.cpp \
       validation_layers.cpp \
       devices.cpp \
       queue_family_indices.cpp \
+      swap_chain.cpp \
 
 OBJS = $(SRC:.cpp=.o)
 

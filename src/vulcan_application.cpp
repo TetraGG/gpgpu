@@ -9,9 +9,6 @@
 #include "validation_layers.hh"
 #include "vulcan_application.hh"
 
-const int WIDTH = 800;
-const int HEIGHT = 600;
-
 void VulkanApplication::run() {
   initWindow();
   initVulkan();
