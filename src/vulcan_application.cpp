@@ -13,8 +13,7 @@
 const int WIDTH = 800;
 const int HEIGHT = 600;
 
-void VulkanApplication::run()
-{
+void VulkanApplication::run() {
   initWindow();
   initVulkan();
   mainLoop();
@@ -35,7 +34,8 @@ void VulkanApplication::initVulkan()
 {
   createInstance();
   setupDebugMessenger();
-  pickPhysicalDevice(instance);
+  physicalDevice = pickPhysicalDevice(instance);
+  createLogicalDevice(physicalDevice, device, graphicsQueue);
 }
 
 void VulkanApplication::createInstance()
@@ -88,6 +88,8 @@ void VulkanApplication::mainLoop()
 
 void VulkanApplication::cleanup()
 {
+  vkDestroyDevice(device, nullptr);
+
   if (enableValidationLayers) {
     DestroyDebugUtilsMessengerEXT(instance, debugMessenger, nullptr);
   }

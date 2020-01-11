@@ -15,6 +15,9 @@ struct QueueFamilyIndices
 };
 
 VkPhysicalDevice pickPhysicalDevice(VkInstance& instance);
+void createLogicalDevice(VkPhysicalDevice& physicalDevice,
+                         VkDevice& device,
+                         VkQueue& graphicsQueue);
 
 bool isDeviceSuitable(VkPhysicalDevice device);
 QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
