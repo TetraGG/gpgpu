@@ -5,8 +5,10 @@
 
 #include "queue_family_indices.hh"
 
-VkPhysicalDevice pickPhysicalDevice(VkInstance& instance);
+VkPhysicalDevice pickPhysicalDevice(VkInstance& instance, VkSurfaceKHR& surface);
 void createLogicalDevice(VkPhysicalDevice& physicalDevice,
                          VkDevice& device,
-                         VkQueue& graphicsQueue);
-bool isDeviceSuitable(VkPhysicalDevice device);
+                         VkQueue& graphicsQueue,
+                         VkQueue& presentQueue,
+                         VkSurfaceKHR& surface);
+bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR& surface);

@@ -30,12 +30,19 @@ void VulkanApplication::initWindow()
   window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan", nullptr, nullptr);
 }
 
+void VulkanApplication::createSurface() {
+    if (glfwCreateWindowSurface(instance, window, nullptr, &surface) != VK_SUCCESS) {
+        throw std::runtime_error("failed to create window surface!");
+    }
+}
+
 void VulkanApplication::initVulkan()
 {
   createInstance();
   setupDebugMessenger();
-  physicalDevice = pickPhysicalDevice(instance);
-  createLogicalDevice(physicalDevice, device, graphicsQueue);
+  createSurface();
+  physicalDevice = pickPhysicalDevice(instance, surface);
+  createLogicalDevice(physicalDevice, device, graphicsQueue, presentQueue, surface);
 }
 
 void VulkanApplication::createInstance()
@@ -94,6 +101,7 @@ void VulkanApplication::cleanup()
     DestroyDebugUtilsMessengerEXT(instance, debugMessenger, nullptr);
   }
 
+  vkDestroySurfaceKHR(instance, surface, nullptr);
   vkDestroyInstance(instance, nullptr);
 
   glfwDestroyWindow(window);

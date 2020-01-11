@@ -12,6 +12,7 @@ public:
 
 private:
   void initWindow();
+  void createSurface();
   void initVulkan();
   void createInstance();
   void mainLoop();
@@ -26,9 +27,11 @@ private:
 
   VkInstance instance;
   VkDebugUtilsMessengerEXT debugMessenger;
+  VkSurfaceKHR surface;
 
   VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
   VkDevice device;
 
   VkQueue graphicsQueue;
+  VkQueue presentQueue;
 };
