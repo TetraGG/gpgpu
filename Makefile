@@ -9,6 +9,7 @@ SRC = main.cpp \
       vulcan_application.cpp \
       validation_layers.cpp \
       devices.cpp \
+      queue_family_indices.cpp \
 
 OBJS = $(SRC:.cpp=.o)
 
