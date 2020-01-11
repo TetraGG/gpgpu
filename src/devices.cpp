@@ -112,6 +112,11 @@ void VulkanDevices::createImageViews()
   swapChain.createImageViews(device);
 }
 
+void VulkanDevices::createRenderPass()
+{
+  swapChain.createRenderPass(device);
+}
+
 void VulkanDevices::createGraphicsPipeline()
 {
   swapChain.createGraphicsPipeline(device);

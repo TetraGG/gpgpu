@@ -23,6 +23,7 @@ public:
                        VkDevice& device,
                        VkSurfaceKHR& surface);
   void createImageViews(VkDevice& device);
+  void createRenderPass(VkDevice& device);
   void createGraphicsPipeline(VkDevice& device);
   void destroySwapChain(VkDevice& device);
 private:
@@ -39,5 +40,6 @@ private:
 
   std::vector<VkImageView> swapChainImageViews;
 
+  VkRenderPass renderPass;
   GraphicsPipeline pipeline;
 };

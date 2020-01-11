@@ -13,9 +13,10 @@ public:
   void createLogicalDevice(VkSurfaceKHR& surface);
   void createSwapChain(VkSurfaceKHR& surface);
   void createImageViews();
+  void createRenderPass();
+  void createGraphicsPipeline();
   void destroyDevices();
   void destroySwapChain();
-  void createGraphicsPipeline();
 
   VkDevice device;
 private:

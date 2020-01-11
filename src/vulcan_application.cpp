@@ -42,6 +42,8 @@ void VulkanApplication::initVulkan()
   devices.createLogicalDevice(surface);
 
   devices.createSwapChain(surface);
+  devices.createImageViews();
+  devices.createRenderPass();
   devices.createGraphicsPipeline();
 }
 
