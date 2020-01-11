@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <vector>
 
+#include "graphics_pipeline.hh"
 #include "validation_layers.hh"
 #include "vulcan_application.hh"
 
@@ -39,6 +40,7 @@ void VulkanApplication::initVulkan()
   createSurface();
   devices.pickPhysicalDevice(instance, surface);
   devices.createLogicalDevice(surface);
+  createGraphicsPipeline(devices.device);
 }
 
 void VulkanApplication::createInstance()

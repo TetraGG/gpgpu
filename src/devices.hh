@@ -15,12 +15,13 @@ public:
   void createImageViews();
   void destroySwapChain();
   void destroyDevices();
+
+  VkDevice device;
 private:
   bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR& surface);
   bool checkDeviceExtensionSupport(VkPhysicalDevice device);
 
   VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
-  VkDevice device;
 
   VkQueue graphicsQueue;
   VkQueue presentQueue;
