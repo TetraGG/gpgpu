@@ -40,6 +40,5 @@ private:
 
   std::vector<VkImageView> swapChainImageViews;
 
-  VkRenderPass renderPass;
   GraphicsPipeline pipeline;
 };

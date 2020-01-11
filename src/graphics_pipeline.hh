@@ -7,8 +7,12 @@ class GraphicsPipeline
 {
 public:
   void createGraphicsPipeline(VkDevice device, VkExtent2D& swapChainExtent);
+  void createRenderPass(VkDevice& device, VkFormat& swapChainImageFormat);
   void destroyGraphicsPipeline(VkDevice& device);
 
 private:
+  VkRenderPass renderPass;
+
   VkPipelineLayout pipelineLayout;
+  VkPipeline graphicsPipeline;
 };
