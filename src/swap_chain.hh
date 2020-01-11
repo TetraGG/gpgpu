@@ -20,6 +20,8 @@ public:
   void createSwapChain(VkPhysicalDevice physicalDevice,
                        VkDevice& device,
                        VkSurfaceKHR& surface);
+  void createImageViews(VkDevice& device);
+  void destroySwapChain(VkDevice& device);
 private:
   VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
   VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
@@ -31,4 +33,6 @@ private:
   std::vector<VkImage> swapChainImages;
   VkFormat swapChainImageFormat;
   VkExtent2D swapChainExtent;
+
+  std::vector<VkImageView> swapChainImageViews;
 };

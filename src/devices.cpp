@@ -107,7 +107,17 @@ void VulkanDevices::createSwapChain(VkSurfaceKHR& surface)
   swapChain.createSwapChain(physicalDevice, device, surface);
 }
 
+void VulkanDevices::createImageViews()
+{
+  swapChain.createImageViews(device);
+}
+
 void VulkanDevices::destroyDevices()
 {
   vkDestroyDevice(device, nullptr);
+}
+
+void VulkanDevices::destroySwapChain()
+{
+  swapChain.destroySwapChain(device);
 }

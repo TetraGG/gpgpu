@@ -12,6 +12,8 @@ public:
   void pickPhysicalDevice(VkInstance& instance, VkSurfaceKHR& surface);
   void createLogicalDevice(VkSurfaceKHR& surface);
   void createSwapChain(VkSurfaceKHR& surface);
+  void createImageViews();
+  void destroySwapChain();
   void destroyDevices();
 private:
   bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR& surface);
