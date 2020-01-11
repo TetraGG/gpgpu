@@ -5,10 +5,18 @@
 
 #include "queue_family_indices.hh"
 
-VkPhysicalDevice pickPhysicalDevice(VkInstance& instance, VkSurfaceKHR& surface);
-void createLogicalDevice(VkPhysicalDevice& physicalDevice,
-                         VkDevice& device,
-                         VkQueue& graphicsQueue,
-                         VkQueue& presentQueue,
-                         VkSurfaceKHR& surface);
-bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR& surface);
+class VulkanDevices
+{
+public:
+  void pickPhysicalDevice(VkInstance& instance, VkSurfaceKHR& surface);
+  void createLogicalDevice(VkSurfaceKHR& surface);
+  void destroyDevices();
+private:
+  bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR& surface);
+
+  VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+  VkDevice device;
+
+  VkQueue graphicsQueue;
+  VkQueue presentQueue;
+};

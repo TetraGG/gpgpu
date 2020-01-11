@@ -6,7 +6,6 @@
 #include <stdexcept>
 #include <vector>
 
-#include "devices.hh"
 #include "validation_layers.hh"
 #include "vulcan_application.hh"
 
@@ -41,8 +40,8 @@ void VulkanApplication::initVulkan()
   createInstance();
   setupDebugMessenger();
   createSurface();
-  physicalDevice = pickPhysicalDevice(instance, surface);
-  createLogicalDevice(physicalDevice, device, graphicsQueue, presentQueue, surface);
+  devices.pickPhysicalDevice(instance, surface);
+  devices.createLogicalDevice(surface);
 }
 
 void VulkanApplication::createInstance()
@@ -95,7 +94,7 @@ void VulkanApplication::mainLoop()
 
 void VulkanApplication::cleanup()
 {
-  vkDestroyDevice(device, nullptr);
+  devices.destroyDevices();
 
   if (enableValidationLayers) {
     DestroyDebugUtilsMessengerEXT(instance, debugMessenger, nullptr);

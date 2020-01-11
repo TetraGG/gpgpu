@@ -15,4 +15,5 @@ struct QueueFamilyIndices
   std::optional<uint32_t> presentFamily;
 };
 
-QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR& surface);
+QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device,
+                                     VkSurfaceKHR& surface);

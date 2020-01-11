@@ -5,7 +5,8 @@
 #include "devices.hh"
 #include "validation_layers.hh"
 
-VkPhysicalDevice pickPhysicalDevice(VkInstance& instance, VkSurfaceKHR& surface)
+void VulkanDevices::pickPhysicalDevice(VkInstance& instance,
+                                       VkSurfaceKHR& surface)
 {
   uint32_t deviceCount = 0;
   vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
@@ -19,14 +20,18 @@ VkPhysicalDevice pickPhysicalDevice(VkInstance& instance, VkSurfaceKHR& surface)
 
   for (const auto& device : devices) {
     if (isDeviceSuitable(device, surface)) {
-      return device;
+      physicalDevice = device;
+      break;
     }
   }
 
-  throw std::runtime_error("failed to find a suitable GPU!");
+  if (physicalDevice == VK_NULL_HANDLE) {
+    throw std::runtime_error("failed to find a suitable GPU!");
+  }
 }
 
-bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR& surface)
+bool VulkanDevices::isDeviceSuitable(VkPhysicalDevice device,
+                                     VkSurfaceKHR& surface)
 {
   QueueFamilyIndices indices = findQueueFamilies(device, surface);
 
@@ -34,11 +39,7 @@ bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR& surface)
 }
 
 
-void createLogicalDevice(VkPhysicalDevice& physicalDevice,
-                         VkDevice& device,
-                         VkQueue& graphicsQueue,
-                         VkQueue& presentQueue,
-                         VkSurfaceKHR& surface)
+void VulkanDevices::createLogicalDevice(VkSurfaceKHR& surface)
 {
   QueueFamilyIndices indices = findQueueFamilies(physicalDevice, surface);
 
@@ -80,4 +81,9 @@ void createLogicalDevice(VkPhysicalDevice& physicalDevice,
 
   vkGetDeviceQueue(device, indices.graphicsFamily.value(), 0, &graphicsQueue);
   vkGetDeviceQueue(device, indices.presentFamily.value(), 0, &presentQueue);
+}
+
+void VulkanDevices::destroyDevices()
+{
+  vkDestroyDevice(device, nullptr);
 }

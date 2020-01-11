@@ -2,7 +2,9 @@
 
 #include "queue_family_indices.hh"
 
-QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR& surface) {
+QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device,
+                                     VkSurfaceKHR& surface)
+{
   QueueFamilyIndices indices;
 
   uint32_t queueFamilyCount = 0;

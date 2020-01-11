@@ -5,6 +5,8 @@
 
 #include <vector>
 
+#include "devices.hh"
+
 class VulkanApplication
 {
 public:
@@ -29,9 +31,5 @@ private:
   VkDebugUtilsMessengerEXT debugMessenger;
   VkSurfaceKHR surface;
 
-  VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
-  VkDevice device;
-
-  VkQueue graphicsQueue;
-  VkQueue presentQueue;
+  VulkanDevices devices;
 };
