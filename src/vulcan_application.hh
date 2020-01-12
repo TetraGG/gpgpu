@@ -26,5 +26,5 @@ private:
 
   Instance instance;
 
-  VulkanDevices devices;
+  Devices* devices;
 };

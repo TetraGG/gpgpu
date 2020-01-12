@@ -20,16 +20,15 @@ void VulkanApplication::initVulkan()
 {
   instance.createSurface(window.window);
 
-  devices.pickPhysicalDevice(instance.instance, instance.surface);
-  devices.createLogicalDevice(instance.surface);
+  devices = new Devices(instance);
 
-  devices.createSwapChain(instance.surface);
-  devices.createImageViews();
-  devices.createRenderPass();
-  devices.createGraphicsPipeline();
-  devices.createFramebuffers();
-  devices.createCommandPool(instance.surface);
-  devices.createCommandBuffers();
+  devices->createSwapChain();
+  devices->createImageViews();
+  devices->createRenderPass();
+  devices->createGraphicsPipeline();
+  devices->createFramebuffers();
+  devices->createCommandPool();
+  devices->createCommandBuffers();
 }
 
 void VulkanApplication::mainLoop()
@@ -41,8 +40,7 @@ void VulkanApplication::mainLoop()
 
 void VulkanApplication::cleanup()
 {
-  devices.destroySwapChain();
-  devices.destroyDevices();
+  delete devices;
 }
 
 std::vector<const char*> VulkanApplication::getRequiredExtensions()

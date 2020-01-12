@@ -3,27 +3,32 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
+#include "instance.hh"
 #include "queue_family_indices.hh"
 #include "swap_chain.hh"
 
-class VulkanDevices
+class Devices
 {
 public:
-  void pickPhysicalDevice(VkInstance& instance, VkSurfaceKHR& surface);
-  void createLogicalDevice(VkSurfaceKHR& surface);
-  void createSwapChain(VkSurfaceKHR& surface);
+
+  Devices(Instance& instance);
+  ~Devices();
+  void pickPhysicalDevice();
+  void createLogicalDevice();
+  void createSwapChain();
   void createImageViews();
   void createRenderPass();
   void createGraphicsPipeline();
   void createFramebuffers();
   void destroyDevices();
   void destroySwapChain();
-  void createCommandPool(VkSurfaceKHR& surface);
+  void createCommandPool();
   void createCommandBuffers();
 
+  Instance& instance;
   VkDevice device;
 private:
-  bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR& surface);
+  bool isDeviceSuitable(VkPhysicalDevice device);
   bool checkDeviceExtensionSupport(VkPhysicalDevice device);
 
   VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
