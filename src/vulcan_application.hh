@@ -20,7 +20,6 @@ private:
   void mainLoop();
   void cleanup();
 
-  bool checkValidationLayerSupport();
   std::vector<const char*> getRequiredExtensions();
 
   Window window;
