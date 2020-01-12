@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "vulcan_application.hh"
+#include "vulkan_application.hh"
 
 int main() {
     VulkanApplication app;

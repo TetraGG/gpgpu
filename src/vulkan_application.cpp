@@ -7,7 +7,7 @@
 
 #include "graphics_pipeline.hh"
 #include "validation_layers.hh"
-#include "vulcan_application.hh"
+#include "vulkan_application.hh"
 
 void VulkanApplication::run() {
   initVulkan();

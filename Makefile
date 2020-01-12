@@ -6,7 +6,7 @@ LDFLAGS = `pkg-config --static --libs glfw3` -lvulkan
 BIN = particle
 
 SRC = main.cpp \
-      vulcan_application.cpp \
+      vulkan_application.cpp \
       validation_layers.cpp \
       devices.cpp \
       queue_family_indices.cpp \
