@@ -7,9 +7,7 @@
 
 #include "command_buffers.hh"
 #include "graphics_pipeline.hh"
-
-const int WIDTH = 800;
-const int HEIGHT = 600;
+#include "window.hh"
 
 struct SwapChainSupportDetails {
     VkSurfaceCapabilitiesKHR capabilities;

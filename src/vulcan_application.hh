@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "devices.hh"
+#include "window.hh"
 
 class VulkanApplication
 {
@@ -13,7 +14,6 @@ public:
   void run();
 
 private:
-  void initWindow();
   void createSurface();
   void initVulkan();
   void createInstance();
@@ -25,7 +25,7 @@ private:
   std::vector<const char*> getRequiredExtensions();
   void setupDebugMessenger();
 
-  GLFWwindow* window;
+  Window window;
 
   VkInstance instance;
   VkDebugUtilsMessengerEXT debugMessenger;

@@ -11,24 +11,13 @@
 #include "vulcan_application.hh"
 
 void VulkanApplication::run() {
-  initWindow();
   initVulkan();
   mainLoop();
   cleanup();
 }
 
-void VulkanApplication::initWindow()
-{
-  glfwInit();
-
-  glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-  glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
-  window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan", nullptr, nullptr);
-}
-
 void VulkanApplication::createSurface() {
-    if (glfwCreateWindowSurface(instance, window, nullptr, &surface) != VK_SUCCESS) {
+    if (glfwCreateWindowSurface(instance, window.window, nullptr, &surface) != VK_SUCCESS) {
         throw std::runtime_error("failed to create window surface!");
     }
 }
@@ -93,7 +82,7 @@ void VulkanApplication::createInstance()
 
 void VulkanApplication::mainLoop()
 {
-  while (!glfwWindowShouldClose(window)) {
+  while (!glfwWindowShouldClose(window.window)) {
     glfwPollEvents();
   }
 }
@@ -109,10 +98,6 @@ void VulkanApplication::cleanup()
 
   vkDestroySurfaceKHR(instance, surface, nullptr);
   vkDestroyInstance(instance, nullptr);
-
-  glfwDestroyWindow(window);
-
-  glfwTerminate();
 }
 
 static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData)

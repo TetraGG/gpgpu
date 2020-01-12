@@ -13,6 +13,7 @@ SRC = main.cpp \
       swap_chain.cpp \
       graphics_pipeline.cpp \
       command_buffers.cpp \
+      window.cpp \
 
 OBJS = $(SRC:.cpp=.o)
 
