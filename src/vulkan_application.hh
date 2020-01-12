@@ -10,6 +10,8 @@
 #include "swap_chain.hh"
 #include "window.hh"
 
+const int MAX_FRAMES_IN_FLIGHT = 2;
+
 class VulkanApplication
 {
 public:
@@ -19,6 +21,8 @@ private:
   void createSurface();
   void initVulkan();
   void mainLoop();
+  void createSyncObjects();
+  void drawFrame();
   void cleanup();
 
   std::vector<const char*> getRequiredExtensions();
@@ -29,4 +33,10 @@ private:
 
   Devices* devices;
   SwapChain* swap_chain;
+
+  std::vector<VkSemaphore> imageAvailableSemaphores;
+  std::vector<VkSemaphore> renderFinishedSemaphores;
+  std::vector<VkFence> inFlightFences;
+  std::vector<VkFence> imagesInFlight;
+  size_t currentFrame = 0;
 };

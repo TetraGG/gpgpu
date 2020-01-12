@@ -22,7 +22,6 @@ struct SwapChain
   SwapChain(Instance& instance, Devices& devices);
   ~SwapChain();
 
-  void createSwapChain();
   void createImageViews();
   void createRenderPass();
   void createGraphicsPipeline();
@@ -34,7 +33,6 @@ struct SwapChain
   Instance& instance;
   Devices& devices;
 
-private:
   VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
   VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
   VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
@@ -52,4 +50,6 @@ private:
   GraphicsPipeline pipeline;
 
   CommandBuffers commands;
+private:
+  void createSwapChain();
 };
