@@ -51,10 +51,18 @@ void Instance::createInstance()
   }
 }
 
+void Instance::createSurface(GLFWwindow* window)
+{
+  if (glfwCreateWindowSurface(instance, window, nullptr, &surface) != VK_SUCCESS)
+    throw std::runtime_error("failed to create window surface!");
+}
+
 Instance::~Instance()
 {
   if (enableValidationLayers)
     DestroyDebugUtilsMessengerEXT(instance, debugMessenger, nullptr);
+
+  vkDestroySurfaceKHR(instance, surface, nullptr);
 
   vkDestroyInstance(instance, nullptr);
 }

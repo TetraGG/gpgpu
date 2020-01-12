@@ -16,25 +16,20 @@ void VulkanApplication::run() {
   cleanup();
 }
 
-void VulkanApplication::createSurface() {
-    if (glfwCreateWindowSurface(instance.instance, window.window,
-                                nullptr, &surface) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create window surface!");
-    }
-}
 
 void VulkanApplication::initVulkan()
 {
-  createSurface();
-  devices.pickPhysicalDevice(instance.instance, surface);
-  devices.createLogicalDevice(surface);
+  instance.createSurface(window.window);
 
-  devices.createSwapChain(surface);
+  devices.pickPhysicalDevice(instance.instance, instance.surface);
+  devices.createLogicalDevice(instance.surface);
+
+  devices.createSwapChain(instance.surface);
   devices.createImageViews();
   devices.createRenderPass();
   devices.createGraphicsPipeline();
   devices.createFramebuffers();
-  devices.createCommandPool(surface);
+  devices.createCommandPool(instance.surface);
   devices.createCommandBuffers();
 }
 
@@ -49,9 +44,6 @@ void VulkanApplication::cleanup()
 {
   devices.destroySwapChain();
   devices.destroyDevices();
-
-
-  vkDestroySurfaceKHR(instance.instance, surface, nullptr);
 }
 
 std::vector<const char*> VulkanApplication::getRequiredExtensions()

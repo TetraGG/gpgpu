@@ -8,7 +8,11 @@ struct Instance
   Instance();
   ~Instance();
 
+  void createSurface(GLFWwindow* window);
+
   VkInstance instance;
+
+  VkSurfaceKHR surface;
 
   VkDebugUtilsMessengerEXT debugMessenger;
 private:

@@ -27,7 +27,5 @@ private:
 
   Instance instance;
 
-  VkSurfaceKHR surface;
-
   VulkanDevices devices;
 };
