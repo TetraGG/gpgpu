@@ -18,6 +18,8 @@ public:
   void createFramebuffers();
   void destroyDevices();
   void destroySwapChain();
+  void createCommandPool(VkSurfaceKHR& surface);
+  void createCommandBuffers();
 
   VkDevice device;
 private:

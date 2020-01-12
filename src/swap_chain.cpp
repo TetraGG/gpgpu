@@ -180,8 +180,23 @@ void VulkanSwapChain::createFramebuffers(VkDevice& device)
   }
 }
 
+void VulkanSwapChain::createCommandPool(VkPhysicalDevice& physicalDevice,
+                                        VkDevice& device,
+                                        VkSurfaceKHR& surface)
+{
+  commands.createCommandPool(physicalDevice, device, surface);
+}
+
+void VulkanSwapChain::createCommandBuffers(VkDevice& device)
+{
+  commands.createCommandBuffers(device, pipeline.renderPass, swapChainFramebuffers,
+                                swapChainExtent, pipeline.graphicsPipeline);
+}
+
 void VulkanSwapChain::destroySwapChain(VkDevice& device)
 {
+  commands.cleanup(device);
+
   for (auto framebuffer : swapChainFramebuffers) {
     vkDestroyFramebuffer(device, framebuffer, nullptr);
   }

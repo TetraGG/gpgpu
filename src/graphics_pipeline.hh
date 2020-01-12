@@ -11,8 +11,8 @@ public:
   void destroyGraphicsPipeline(VkDevice& device);
 
   VkRenderPass renderPass;
+  VkPipeline graphicsPipeline;
 private:
 
   VkPipelineLayout pipelineLayout;
-  VkPipeline graphicsPipeline;
 };

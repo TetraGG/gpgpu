@@ -46,6 +46,8 @@ void VulkanApplication::initVulkan()
   devices.createRenderPass();
   devices.createGraphicsPipeline();
   devices.createFramebuffers();
+  devices.createCommandPool(surface);
+  devices.createCommandBuffers();
 }
 
 void VulkanApplication::createInstance()

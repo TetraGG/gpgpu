@@ -12,6 +12,7 @@ SRC = main.cpp \
       queue_family_indices.cpp \
       swap_chain.cpp \
       graphics_pipeline.cpp \
+      command_buffers.cpp \
 
 OBJS = $(SRC:.cpp=.o)
 

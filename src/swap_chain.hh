@@ -5,6 +5,7 @@
 
 #include <vector>
 
+#include "command_buffers.hh"
 #include "graphics_pipeline.hh"
 
 const int WIDTH = 800;
@@ -26,6 +27,9 @@ public:
   void createRenderPass(VkDevice& device);
   void createGraphicsPipeline(VkDevice& device);
   void createFramebuffers(VkDevice& device);
+  void createCommandPool(VkPhysicalDevice& physicalDevice, VkDevice& device,
+                         VkSurfaceKHR& surface);
+  void createCommandBuffers(VkDevice& device);
   void destroySwapChain(VkDevice& device);
 private:
   VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
@@ -44,4 +48,6 @@ private:
   std::vector<VkImageView> swapChainImageViews;
 
   GraphicsPipeline pipeline;
+
+  CommandBuffers commands;
 };

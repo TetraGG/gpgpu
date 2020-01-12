@@ -127,6 +127,16 @@ void VulkanDevices::createFramebuffers()
   swapChain.createFramebuffers(device);
 }
 
+void VulkanDevices::createCommandPool(VkSurfaceKHR& surface)
+{
+  swapChain.createCommandPool(physicalDevice, device, surface);
+}
+
+void VulkanDevices::createCommandBuffers()
+{
+  swapChain.createCommandBuffers(device);
+}
+
 void VulkanDevices::destroyDevices()
 {
   vkDestroyDevice(device, nullptr);
