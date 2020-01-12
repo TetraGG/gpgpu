@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "devices.hh"
+#include "instance.hh"
 #include "window.hh"
 
 class VulkanApplication
@@ -16,19 +17,16 @@ public:
 private:
   void createSurface();
   void initVulkan();
-  void createInstance();
   void mainLoop();
   void cleanup();
 
-  void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo);
   bool checkValidationLayerSupport();
   std::vector<const char*> getRequiredExtensions();
-  void setupDebugMessenger();
 
   Window window;
 
-  VkInstance instance;
-  VkDebugUtilsMessengerEXT debugMessenger;
+  Instance instance;
+
   VkSurfaceKHR surface;
 
   VulkanDevices devices;

@@ -17,17 +17,16 @@ void VulkanApplication::run() {
 }
 
 void VulkanApplication::createSurface() {
-    if (glfwCreateWindowSurface(instance, window.window, nullptr, &surface) != VK_SUCCESS) {
+    if (glfwCreateWindowSurface(instance.instance, window.window,
+                                nullptr, &surface) != VK_SUCCESS) {
         throw std::runtime_error("failed to create window surface!");
     }
 }
 
 void VulkanApplication::initVulkan()
 {
-  createInstance();
-  setupDebugMessenger();
   createSurface();
-  devices.pickPhysicalDevice(instance, surface);
+  devices.pickPhysicalDevice(instance.instance, surface);
   devices.createLogicalDevice(surface);
 
   devices.createSwapChain(surface);
@@ -37,47 +36,6 @@ void VulkanApplication::initVulkan()
   devices.createFramebuffers();
   devices.createCommandPool(surface);
   devices.createCommandBuffers();
-}
-
-void VulkanApplication::createInstance()
-{
-  if (enableValidationLayers && !checkValidationLayerSupport()) {
-    throw std::runtime_error("validation layers requested, but not available!");
-  }
-
-  VkApplicationInfo appInfo = {};
-  appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-  appInfo.pApplicationName = "Hello Triangle";
-  appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-  appInfo.pEngineName = "No Engine";
-  appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
-  appInfo.apiVersion = VK_API_VERSION_1_0;
-
-  VkInstanceCreateInfo createInfo = {};
-  createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-  createInfo.pApplicationInfo = &appInfo;
-
-
-  auto extensions = getRequiredExtensions();
-  createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
-  createInfo.ppEnabledExtensionNames = extensions.data();
-
-  VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo;
-  if (enableValidationLayers) {
-    createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
-    createInfo.ppEnabledLayerNames = validationLayers.data();
-
-    populateDebugMessengerCreateInfo(debugCreateInfo);
-    createInfo.pNext = (VkDebugUtilsMessengerCreateInfoEXT*) &debugCreateInfo;
-  } else {
-    createInfo.enabledLayerCount = 0;
-
-    createInfo.pNext = nullptr;
-  }
-
-  if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
-    throw std::runtime_error("failed to create instance!");
-  }
 }
 
 void VulkanApplication::mainLoop()
@@ -92,40 +50,8 @@ void VulkanApplication::cleanup()
   devices.destroySwapChain();
   devices.destroyDevices();
 
-  if (enableValidationLayers) {
-    DestroyDebugUtilsMessengerEXT(instance, debugMessenger, nullptr);
-  }
 
-  vkDestroySurfaceKHR(instance, surface, nullptr);
-  vkDestroyInstance(instance, nullptr);
-}
-
-static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData)
-{
-  std::cerr << "validation layer: " << pCallbackData->pMessage << std::endl;
-
-  return VK_FALSE;
-}
-
-void VulkanApplication::populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo)
-{
-  createInfo = {};
-  createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
-  createInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
-  createInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
-  createInfo.pfnUserCallback = debugCallback;
-}
-
-void VulkanApplication::setupDebugMessenger()
-{
-  if (!enableValidationLayers) return;
-
-  VkDebugUtilsMessengerCreateInfoEXT createInfo;
-  populateDebugMessengerCreateInfo(createInfo);
-
-  if (CreateDebugUtilsMessengerEXT(instance, &createInfo, nullptr, &debugMessenger) != VK_SUCCESS) {
-    throw std::runtime_error("failed to set up debug messenger!");
-  }
+  vkDestroySurfaceKHR(instance.instance, surface, nullptr);
 }
 
 std::vector<const char*> VulkanApplication::getRequiredExtensions()

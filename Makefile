@@ -14,6 +14,7 @@ SRC = main.cpp \
       graphics_pipeline.cpp \
       command_buffers.cpp \
       window.cpp \
+      instance.cpp \
 
 OBJS = $(SRC:.cpp=.o)
 
