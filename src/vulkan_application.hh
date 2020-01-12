@@ -7,6 +7,7 @@
 
 #include "devices.hh"
 #include "instance.hh"
+#include "swap_chain.hh"
 #include "window.hh"
 
 class VulkanApplication
@@ -27,4 +28,5 @@ private:
   Instance instance;
 
   Devices* devices;
+  SwapChain* swap_chain;
 };

@@ -6,7 +6,9 @@
 #include <vector>
 
 #include "command_buffers.hh"
+#include "devices.hh"
 #include "graphics_pipeline.hh"
+#include "instance.hh"
 #include "window.hh"
 
 struct SwapChainSupportDetails {
@@ -15,26 +17,28 @@ struct SwapChainSupportDetails {
     std::vector<VkPresentModeKHR> presentModes;
 };
 
-class VulkanSwapChain
+struct SwapChain
 {
-public:
-  void createSwapChain(VkPhysicalDevice physicalDevice,
-                       VkDevice& device,
-                       VkSurfaceKHR& surface);
-  void createImageViews(VkDevice& device);
-  void createRenderPass(VkDevice& device);
-  void createGraphicsPipeline(VkDevice& device);
-  void createFramebuffers(VkDevice& device);
-  void createCommandPool(VkPhysicalDevice& physicalDevice, VkDevice& device,
-                         VkSurfaceKHR& surface);
-  void createCommandBuffers(VkDevice& device);
-  void destroySwapChain(VkDevice& device);
+  SwapChain(Instance& instance, Devices& devices);
+  ~SwapChain();
+
+  void createSwapChain();
+  void createImageViews();
+  void createRenderPass();
+  void createGraphicsPipeline();
+  void createFramebuffers();
+  void createCommandPool();
+  void createCommandBuffers();
+  void destroySwapChain();
+
+  Instance& instance;
+  Devices& devices;
+
 private:
   VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
   VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
   VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
-  SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device,
-                                                VkSurfaceKHR& surface);
+  SwapChainSupportDetails querySwapChainSupport();
 
   VkSwapchainKHR swapChain;
   std::vector<VkImage> swapChainImages;

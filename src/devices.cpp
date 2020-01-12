@@ -108,46 +108,5 @@ void Devices::createLogicalDevice()
 
 Devices::~Devices()
 {
-  destroySwapChain();
   vkDestroyDevice(device, nullptr);
-}
-
-void Devices::createSwapChain()
-{
-  swapChain.createSwapChain(physicalDevice, device, instance.surface);
-}
-
-void Devices::createImageViews()
-{
-  swapChain.createImageViews(device);
-}
-
-void Devices::createRenderPass()
-{
-  swapChain.createRenderPass(device);
-}
-
-void Devices::createGraphicsPipeline()
-{
-  swapChain.createGraphicsPipeline(device);
-}
-
-void Devices::createFramebuffers()
-{
-  swapChain.createFramebuffers(device);
-}
-
-void Devices::createCommandPool()
-{
-  swapChain.createCommandPool(physicalDevice, device, instance.surface);
-}
-
-void Devices::createCommandBuffers()
-{
-  swapChain.createCommandBuffers(device);
-}
-
-void Devices::destroySwapChain()
-{
-  swapChain.destroySwapChain(device);
 }

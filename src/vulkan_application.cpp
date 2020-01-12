@@ -22,13 +22,14 @@ void VulkanApplication::initVulkan()
 
   devices = new Devices(instance);
 
-  devices->createSwapChain();
-  devices->createImageViews();
-  devices->createRenderPass();
-  devices->createGraphicsPipeline();
-  devices->createFramebuffers();
-  devices->createCommandPool();
-  devices->createCommandBuffers();
+  swap_chain = new SwapChain(instance, *devices);
+
+  swap_chain->createImageViews();
+  swap_chain->createRenderPass();
+  swap_chain->createGraphicsPipeline();
+  swap_chain->createFramebuffers();
+  swap_chain->createCommandPool();
+  swap_chain->createCommandBuffers();
 }
 
 void VulkanApplication::mainLoop()
@@ -40,6 +41,7 @@ void VulkanApplication::mainLoop()
 
 void VulkanApplication::cleanup()
 {
+  delete swap_chain;
   delete devices;
 }
 
