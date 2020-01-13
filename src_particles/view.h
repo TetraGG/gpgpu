@@ -10,6 +10,7 @@ typedef struct
     point direction;
 } view;
 
+/*
 static view current_view =
 {
     .position.x = EMITTER_X - 400,
@@ -22,5 +23,20 @@ static view current_view =
     .direction.y = 1.0,
     .direction.z = 0.0
 };
+*/
+
+static view current_view =
+{
+    .position.x = 0.0,
+    .position.y = 240.0,
+    .position.z = 500.0,
+    .center.x = 0.0,
+    .center.y = 240.,
+    .center.z = 0.,
+    .direction.x = 0.0,
+    .direction.y = 1.0,
+    .direction.z = 0.0
+};
+
 
 void set_view(void);

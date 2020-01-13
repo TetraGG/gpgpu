@@ -77,5 +77,9 @@ void particles_display(void)
     particles_spawn();
     particles_draw();
     particles_update();
+	glutPostRedisplay();                  // Mark the current window to be redisplayed
     compute_fps();
+
+
+	glutSwapBuffers();                    // Double buffering in place
 }

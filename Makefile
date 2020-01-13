@@ -1,6 +1,6 @@
 CXX=g++
 
-CXXFLAGS = -std=c++17 -Wall -pedantic -Wextra
+CXXFLAGS = -std=c++17 -Wall -pedantic -Wextra -g
 LDFLAGS = `pkg-config --static --libs glfw3` -lvulkan
 
 BIN = particle

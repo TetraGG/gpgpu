@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "helpers.h"
 
@@ -37,5 +38,6 @@ void compute_fps(void)
         fps = frame_count / time_interval;
         previous_time = current_time;
         frame_count = 0;
+		printf("Lol: %d\n", fps);
     }
 }

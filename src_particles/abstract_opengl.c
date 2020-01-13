@@ -3,6 +3,19 @@
 
 #include <GL/glut.h>
 
+/******************************************************************************
+* Reshape function called whenever the application window is reshaped
+******************************************************************************/
+void reshape(int width, int height)
+{
+  glClearColor(0.0, 0.0, 0.0, 1.0);
+  glViewport(0, 0, (GLsizei)width, (GLsizei)height);
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  gluPerspective(60, (GLfloat)width / (GLfloat)height, 1.0, 10000.0);
+  glMatrixMode(GL_MODELVIEW);
+}
+
 void graphics_init(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
@@ -11,11 +24,11 @@ void graphics_init(int argc, char *argv[])
 	glutCreateWindow("Particle system");
 	glutFullScreen();
 	glutDisplayFunc(particles_display);
+	glutReshapeFunc(reshape);
 
 	// Render points as circles and make them span a few pixels instead of one
 	glEnable(GL_POINT_SMOOTH);
 	glPointSize(POINT_SIZE);
-
 }
 
 void particles_draw(void)
