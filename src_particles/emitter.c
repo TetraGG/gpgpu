@@ -72,8 +72,8 @@ void particles_update(void)
 
 void particles_display(void)
 {
-	graphics_clear();
     set_view();
+	graphics_clear();
     particles_spawn();
     particles_draw();
     particles_update();

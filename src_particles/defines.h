@@ -6,9 +6,9 @@
 // Emitter
 #define MAX_PARTICLES 2000000
 #define TOTAL_PARTICLES 1000
-#define EMITTER_X 0.0
+#define EMITTER_X 250.0
 #define EMITTER_Y 0.0
-#define EMITTER_Z 250.0
+#define EMITTER_Z 0.0
 #define EMITTER_SIZE 15.0
 
 // Speed

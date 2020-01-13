@@ -9,5 +9,6 @@ int main(int argc, char *argv[])
     particles_init();
     graphics_init(argc, argv);
     // TODO: infinite loop
+	graphics_mainloop();
     return 0;
 }

@@ -16,21 +16,6 @@ void graphics_init(int argc, char *argv[])
 	glEnable(GL_POINT_SMOOTH);
 	glPointSize(POINT_SIZE);
 
-	/*--------------------------------------------------------------------------
-	 * Setup for the smoke rendering method using textures
-	 *-------------------------------------------------------------------------*/
-
-	// Make points very large (in pixel terms), set the blending funcion
-	glPointSize(POINT_SIZE_TEXTURE);
-	// Render antialiased points and lines in arbitrary order, pixel aithmetic
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_BLEND);
-	//  Specify the drawing mode for point sprites
-	glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	// Enable point sprites and 2D textures
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_POINT_SPRITE);
 }
 
 void particles_draw(void)
@@ -46,9 +31,14 @@ void particles_draw(void)
     glEnd();
 }
 
+void graphics_mainloop(void)
+{
+	glutMainLoop();
+}
+
 void graphics_clear(void)
 {
-	//TODO
+	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void set_view(void)

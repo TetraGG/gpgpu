@@ -33,6 +33,7 @@ static emitter fire;
 
 void graphics_init(int argc, char *argv[]);
 void graphics_clear(void);
+void graphics_mainloop(void);
 void particles_draw(void);
 
 void particles_init(void);
