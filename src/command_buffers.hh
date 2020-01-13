@@ -13,7 +13,8 @@ struct CommandBuffers
                                           VkRenderPass& renderPass,
   std::vector<VkFramebuffer>& swapChainFramebuffers,
   VkExtent2D& swapChainExtent,
-  VkPipeline& graphicsPipeline);
+  VkPipeline& graphicsPipeline,
+  VkBuffer vertexBuffer);
 
   void cleanup(VkDevice& device);
   std::vector<VkCommandBuffer> commandBuffers;

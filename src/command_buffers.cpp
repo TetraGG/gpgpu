@@ -2,6 +2,7 @@
 
 #include "command_buffers.hh"
 #include "queue_family_indices.hh"
+#include "vertex.hh"
 
 void CommandBuffers::createCommandPool(VkPhysicalDevice& physicalDevice,
                                        VkDevice& device,
@@ -23,7 +24,8 @@ void CommandBuffers::createCommandBuffers(VkDevice& device,
                                           VkRenderPass& renderPass,
   std::vector<VkFramebuffer>& swapChainFramebuffers,
   VkExtent2D& swapChainExtent,
-  VkPipeline& graphicsPipeline)
+  VkPipeline& graphicsPipeline,
+  VkBuffer vertexBuffer)
 {
   commandBuffers.resize(swapChainFramebuffers.size());
 
@@ -60,7 +62,11 @@ void CommandBuffers::createCommandBuffers(VkDevice& device,
 
     vkCmdBindPipeline(commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline);
 
-    vkCmdDraw(commandBuffers[i], 3, 1, 0, 0);
+    VkBuffer vertexBuffers[] = {vertexBuffer};
+    VkDeviceSize offsets[] = {0};
+    vkCmdBindVertexBuffers(commandBuffers[i], 0, 1, vertexBuffers, offsets);
+
+    vkCmdDraw(commandBuffers[i], static_cast<uint32_t>(vertices.size()), 1, 0, 0);
 
     vkCmdEndRenderPass(commandBuffers[i]);
 

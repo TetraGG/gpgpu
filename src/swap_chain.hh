@@ -31,6 +31,7 @@ struct SwapChain
   void createFramebuffers();
   void createCommandPool();
   void createCommandBuffers();
+  void createVertexBuffer();
   void destroySwapChain();
 
   Window& window;
@@ -54,6 +55,10 @@ struct SwapChain
   GraphicsPipeline pipeline;
 
   CommandBuffers commands;
+
+  VkBuffer vertexBuffer;
+  VkDeviceMemory vertexBufferMemory;
 private:
   void createSwapChain();
+  uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 };

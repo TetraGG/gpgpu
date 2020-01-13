@@ -1,7 +1,9 @@
 #include <stdexcept>
+#include <cstring>
 
 #include "swap_chain.hh"
 #include "queue_family_indices.hh"
+#include "vertex.hh"
 
 SwapChain::SwapChain(Window& window, Instance& instance, Devices& devices)
   : window(window),
@@ -231,7 +233,52 @@ void SwapChain::createCommandBuffers()
 {
   commands.createCommandBuffers(devices.device, pipeline.renderPass,
                                 swapChainFramebuffers, swapChainExtent,
-                                pipeline.graphicsPipeline);
+                                pipeline.graphicsPipeline, vertexBuffer);
+}
+
+void SwapChain::createVertexBuffer()
+{
+  VkBufferCreateInfo bufferInfo = {};
+  bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
+  bufferInfo.size = sizeof(vertices[0]) * vertices.size();
+  bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
+  bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+
+  if (vkCreateBuffer(devices.device, &bufferInfo, nullptr, &vertexBuffer) != VK_SUCCESS) {
+    throw std::runtime_error("failed to create vertex buffer!");
+  }
+
+  VkMemoryRequirements memRequirements;
+  vkGetBufferMemoryRequirements(devices.device, vertexBuffer, &memRequirements);
+
+  VkMemoryAllocateInfo allocInfo = {};
+  allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+  allocInfo.allocationSize = memRequirements.size;
+  allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+
+  if (vkAllocateMemory(devices.device, &allocInfo, nullptr, &vertexBufferMemory) != VK_SUCCESS) {
+    throw std::runtime_error("failed to allocate vertex buffer memory!");
+  }
+
+  vkBindBufferMemory(devices.device, vertexBuffer, vertexBufferMemory, 0);
+
+  void* data;
+  vkMapMemory(devices.device, vertexBufferMemory, 0, bufferInfo.size, 0, &data);
+    memcpy(data, vertices.data(), (size_t) bufferInfo.size);
+  vkUnmapMemory(devices.device, vertexBufferMemory);
+}
+
+uint32_t SwapChain::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) {
+  VkPhysicalDeviceMemoryProperties memProperties;
+  vkGetPhysicalDeviceMemoryProperties(devices.physicalDevice, &memProperties);
+
+  for (uint32_t i = 0; i < memProperties.memoryTypeCount; i++) {
+    if ((typeFilter & (1 << i)) && (memProperties.memoryTypes[i].propertyFlags & properties) == properties) {
+      return i;
+    }
+  }
+
+  throw std::runtime_error("failed to find suitable memory type!");
 }
 
 void SwapChain::cleanupSwapChain()
