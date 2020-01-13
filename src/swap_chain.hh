@@ -19,8 +19,11 @@ struct SwapChainSupportDetails {
 
 struct SwapChain
 {
-  SwapChain(Instance& instance, Devices& devices);
+  SwapChain(Window& window, Instance& instance, Devices& devices);
   ~SwapChain();
+
+  void recreateSwapChain();
+  void cleanupSwapChain();
 
   void createImageViews();
   void createRenderPass();
@@ -30,6 +33,7 @@ struct SwapChain
   void createCommandBuffers();
   void destroySwapChain();
 
+  Window& window;
   Instance& instance;
   Devices& devices;
 

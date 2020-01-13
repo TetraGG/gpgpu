@@ -10,6 +10,8 @@ struct Window
 {
   Window();
   ~Window();
+
   GLFWwindow* window;
+  bool framebufferResized = false;
 };
 

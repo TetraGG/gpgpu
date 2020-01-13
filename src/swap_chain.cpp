@@ -3,8 +3,9 @@
 #include "swap_chain.hh"
 #include "queue_family_indices.hh"
 
-SwapChain::SwapChain(Instance& instance, Devices& devices)
-  : instance(instance),
+SwapChain::SwapChain(Window& window, Instance& instance, Devices& devices)
+  : window(window),
+    instance(instance),
     devices(devices)
 {
   createSwapChain();
@@ -52,8 +53,6 @@ void SwapChain::createSwapChain()
   createInfo.presentMode = presentMode;
   createInfo.clipped = VK_TRUE;
 
-  createInfo.oldSwapchain = VK_NULL_HANDLE;
-
   if (vkCreateSwapchainKHR(devices.device, &createInfo, nullptr, &swapChain)
       != VK_SUCCESS)
   {
@@ -67,6 +66,27 @@ void SwapChain::createSwapChain()
 
   swapChainImageFormat = surfaceFormat.format;
   swapChainExtent = extent;
+}
+
+void SwapChain::recreateSwapChain()
+{
+  int width = 0, height = 0;
+  glfwGetFramebufferSize(window.window, &width, &height);
+  while (width == 0 || height == 0) {
+    glfwGetFramebufferSize(window.window, &width, &height);
+    glfwWaitEvents();
+  }
+
+  vkDeviceWaitIdle(devices.device);
+
+  cleanupSwapChain();
+
+  createSwapChain();
+  createImageViews();
+  createRenderPass();
+  createGraphicsPipeline();
+  createFramebuffers();
+  createCommandBuffers();
 }
 
 VkSurfaceFormatKHR SwapChain::chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats)
@@ -96,7 +116,13 @@ VkExtent2D SwapChain::chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilit
   if (capabilities.currentExtent.width != UINT32_MAX) {
     return capabilities.currentExtent;
   } else {
-    VkExtent2D actualExtent = {WIDTH, HEIGHT};
+    int width, height;
+    glfwGetFramebufferSize(window.window, &width, &height);
+
+    VkExtent2D actualExtent = {
+      static_cast<uint32_t>(width),
+      static_cast<uint32_t>(height)
+    };
 
     actualExtent.width = std::max(capabilities.minImageExtent.width, std::min(capabilities.maxImageExtent.width, actualExtent.width));
     actualExtent.height = std::max(capabilities.minImageExtent.height, std::min(capabilities.maxImageExtent.height, actualExtent.height));
@@ -208,7 +234,7 @@ void SwapChain::createCommandBuffers()
                                 pipeline.graphicsPipeline);
 }
 
-SwapChain::~SwapChain()
+void SwapChain::cleanupSwapChain()
 {
   commands.cleanup(devices.device);
 
@@ -223,4 +249,9 @@ SwapChain::~SwapChain()
   }
 
   vkDestroySwapchainKHR(devices.device, swapChain, nullptr);
+}
+
+SwapChain::~SwapChain()
+{
+  cleanupSwapChain();
 }
