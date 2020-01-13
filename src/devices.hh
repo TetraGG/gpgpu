@@ -6,6 +6,10 @@
 #include "instance.hh"
 #include "queue_family_indices.hh"
 
+const std::vector<const char*> deviceExtensions = {
+    VK_KHR_SWAPCHAIN_EXTENSION_NAME
+};
+
 class Devices
 {
 public:
