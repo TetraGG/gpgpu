@@ -236,11 +236,13 @@ void SwapChain::createCommandBuffers()
 
 void SwapChain::cleanupSwapChain()
 {
-  commands.cleanup(devices.device);
-
   for (auto framebuffer : swapChainFramebuffers) {
     vkDestroyFramebuffer(devices.device, framebuffer, nullptr);
   }
+
+  vkFreeCommandBuffers(devices.device, commands.commandPool,
+                       static_cast<uint32_t>(commands.commandBuffers.size()),
+                       commands.commandBuffers.data());
 
   pipeline.destroyGraphicsPipeline(devices.device);
 
@@ -254,4 +256,5 @@ void SwapChain::cleanupSwapChain()
 SwapChain::~SwapChain()
 {
   cleanupSwapChain();
+  commands.cleanup(devices.device);
 }
