@@ -15,6 +15,7 @@ SRC = main.cpp \
       command_buffers.cpp \
       window.cpp \
       instance.cpp \
+      vertex.cpp \
 
 OBJS = $(SRC:.cpp=.o)
 
