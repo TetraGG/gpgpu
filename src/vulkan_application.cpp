@@ -72,9 +72,6 @@ void VulkanApplication::drawFrame()
                   UINT64_MAX);
 
   uint32_t imageIndex;
-  vkAcquireNextImageKHR(devices->device, swap_chain->swapChain, UINT64_MAX,
-                        imageAvailableSemaphores[currentFrame], VK_NULL_HANDLE,
-                        &imageIndex);
   VkResult result = vkAcquireNextImageKHR(devices->device, swap_chain->swapChain,
                                           UINT64_MAX,
                                           imageAvailableSemaphores[currentFrame],
