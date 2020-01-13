@@ -9,6 +9,5 @@ int main(void)
     particles_init();
     graphics_init();
     // TODO: infinite loop
-    while (1);
     return 0;
 }

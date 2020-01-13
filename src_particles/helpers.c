@@ -29,12 +29,12 @@ void compute_fps(void)
 {
     frame_count++;
 
-    // current_time = TODO: get current
-    int time_interval = current_time - previous_time;
+    current_time = clock();
+    double time_interval = (current_time - previous_time) / CLOCKS_PER_SEC;
 
-    if (time_interval > 1000)
+    if (time_interval > 1.0)
     {
-        fps = frame_count / (time_interval / 1000.0f);
+        fps = frame_count / time_interval;
         previous_time = current_time;
         frame_count = 0;
     }

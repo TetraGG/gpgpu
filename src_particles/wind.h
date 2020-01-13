@@ -4,7 +4,7 @@
 
 #include "point.h"
 
-#define TO_RADIAN M_PI / 180.0
+#define TO_RADIAN 3.1415 / 180.0
 
 typedef struct
 {
