@@ -14,7 +14,8 @@ struct CommandBuffers
   std::vector<VkFramebuffer>& swapChainFramebuffers,
   VkExtent2D& swapChainExtent,
   VkPipeline& graphicsPipeline,
-  VkBuffer vertexBuffer);
+  VkBuffer& vertexBuffer,
+  VkBuffer& indexBuffer);
 
   void cleanup(VkDevice& device);
   std::vector<VkCommandBuffer> commandBuffers;

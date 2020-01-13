@@ -32,6 +32,7 @@ struct SwapChain
   void createCommandPool();
   void createCommandBuffers();
   void createVertexBuffer();
+  void createIndexBuffer();
   void destroySwapChain();
 
   Window& window;
@@ -58,6 +59,8 @@ struct SwapChain
 
   VkBuffer vertexBuffer;
   VkDeviceMemory vertexBufferMemory;
+  VkBuffer indexBuffer;
+  VkDeviceMemory indexBufferMemory;
 private:
   void createSwapChain();
   uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);

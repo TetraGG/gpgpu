@@ -29,6 +29,8 @@ void VulkanApplication::initVulkan()
   swap_chain->createGraphicsPipeline();
   swap_chain->createFramebuffers();
   swap_chain->createCommandPool();
+  swap_chain->createVertexBuffer();
+  swap_chain->createIndexBuffer();
   swap_chain->createCommandBuffers();
 
   createSyncObjects();
