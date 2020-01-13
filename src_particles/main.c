@@ -3,11 +3,11 @@
 
 #include "emitter.h"
 
-int main(void)
+int main(int argc, char *argv[])
 {
     srand(time(NULL));
     particles_init();
-    graphics_init();
+    graphics_init(argc, argv);
     // TODO: infinite loop
     return 0;
 }

@@ -28,9 +28,10 @@ typedef struct
 } emitter;
 
 static double gravity = 0.0;
+
 static emitter fire;
 
-void graphics_init(void);
+void graphics_init(int argc, char *argv[]);
 void graphics_clear(void);
 void particles_draw(void);
 

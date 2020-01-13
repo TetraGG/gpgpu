@@ -42,3 +42,8 @@
 #define WIND_DIRECTION_CHANGE 10
 #define WIND_INIT_SPEED 0.1
 #define WIND_INIT_DIRECTION 90.0
+
+#define POINT_SIZE 3					// Point size (non-textured rendering)
+#define POINT_SIZE_TEXTURE 100			// Point size for textured smoke rendering
+#define WINDOW_WIDTH 1450				// Window size
+#define WINDOW_HEIGHT 800
