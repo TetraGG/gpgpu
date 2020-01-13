@@ -4,11 +4,6 @@
 #include "view.h"
 #include "wind.h"
 
-void graphics_init(void)
-{
-    // TODO: init window and load particles
-}
-
 void particles_init(void)
 {
     fire.total_particles = TOTAL_PARTICLES;
@@ -25,7 +20,7 @@ void particles_init(void)
 
 void particles_spawn(void)
 {
-    for (size_t index = fire.alive_particles; index < fire.total_particles; index++) 
+    for (size_t index = fire.alive_particles; index < fire.total_particles; index++)
     {
         fire.particles[index].position.x = random_uniform(EMITTER_SIZE) + EMITTER_X;
         fire.particles[index].position.y = EMITTER_Y;
@@ -42,14 +37,9 @@ void particles_spawn(void)
     }
 }
 
-void particles_draw(void)
-{
-    // TODO: render particles
-}
-
 void particles_update(void)
 {
-    for (size_t index = 0; index < fire.alive_particles; index++) 
+    for (size_t index = 0; index < fire.alive_particles; index++)
     {
         if ((fire.particles[index].color.r <= PARTICLE_DEATH && fire.particles[index].color.g <= PARTICLE_DEATH
           && fire.particles[index].color.b <= PARTICLE_DEATH) ||fire.particles[index].color.a <= PARTICLE_DEATH)
@@ -82,7 +72,7 @@ void particles_update(void)
 
 void particles_display(void)
 {
-    // TODO: clear image, etc...
+	graphics_clear();
     set_view();
     particles_spawn();
     particles_draw();

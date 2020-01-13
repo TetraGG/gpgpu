@@ -31,9 +31,10 @@ static double gravity = 0.0;
 static emitter fire;
 
 void graphics_init(void);
+void graphics_clear(void);
+void particles_draw(void);
 
 void particles_init(void);
 void particles_spawn(void);
-void particles_draw(void);
 void particles_update(void);
 void particles_display(void);
