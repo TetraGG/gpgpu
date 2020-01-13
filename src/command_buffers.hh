@@ -5,9 +5,8 @@
 
 #include <vector>
 
-class CommandBuffers
+struct CommandBuffers
 {
-public:
   void createCommandPool(VkPhysicalDevice& physicalDevice, VkDevice& device,
                          VkSurfaceKHR& surface);
   void createCommandBuffers(VkDevice& device,
@@ -18,7 +17,6 @@ public:
 
   void cleanup(VkDevice& device);
   std::vector<VkCommandBuffer> commandBuffers;
-private:
   VkCommandPool commandPool;
 
 };
