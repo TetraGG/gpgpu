@@ -16,7 +16,7 @@ void CommandBuffers::createCommandPool(VkPhysicalDevice& physicalDevice,
   poolInfo.queueFamilyIndex = queueFamilyIndices.graphicsFamily.value();
 
   if (vkCreateCommandPool(device, &poolInfo, nullptr, &commandPool) != VK_SUCCESS) {
-    throw std::runtime_error("failed to create command pool!");
+    throw std::runtime_error("failed to create graphics command pool!");
   }
 }
 

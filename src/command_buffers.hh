@@ -19,5 +19,4 @@ struct CommandBuffers
   void cleanup(VkDevice& device);
   std::vector<VkCommandBuffer> commandBuffers;
   VkCommandPool commandPool;
-
 };
