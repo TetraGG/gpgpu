@@ -6,11 +6,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define POINT_SIZE 3
+#define POINT_SIZE 1
 #define PARTICLES_MAX 2000000
 #define PARTICLES_TOTAL 1000
 #define PARTICLE_MASS 0.00002
-#define PARTICLE_DEATH 0.0000001
+#define PARTICLE_DEATH 0.25
 
 #define EMITTER_X 250.0
 #define EMITTER_Y 0.0
@@ -24,7 +24,7 @@
 #define CHAOS_SPEED_VAR 0.002
 #define CHAOS_VERTICAL_MUL 2.0
 
-#define SHADE 0.8
+#define SHADE 0.75
 #define SHADE_CHANGE_MEAN 0.0015
 #define SHADE_CHANGE_VAR 0.007
 #define SHADE_INIT_VAR 0.02
@@ -36,7 +36,7 @@
 #define TEXTURE_NUMBER 25
 
 #define WIND_DIRECTION_CHANGE 10
-#define WIND_INIT_SPEED 0.1
+#define WIND_INIT_SPEED 5
 #define WIND_INIT_DIRECTION 90.0
 
 #define DEFAULT_GRAVITY -9.81
