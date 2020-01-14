@@ -8,6 +8,7 @@
 
 #include "point.hh"
 
+#define POINT_SIZE 3
 #define PARTICLES_MAX 2000000
 #define PARTICLES_TOTAL 1000
 #define PARTICLE_MASS 0.00002
@@ -72,9 +73,9 @@ typedef struct {
     double speed;
 } wind_t;
 
-static emitter fire;
-double gravity;
-wind_t wind;
+extern emitter fire;
+extern double gravity;
+extern wind_t wind;
 
 void particles_init(void);
 

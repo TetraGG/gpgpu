@@ -4,6 +4,10 @@
 #include "graphics.hh"
 #include "rng.hh"
 
+emitter fire;
+double gravity;
+wind_t wind;
+
 int main(int argc, char* argv[])
 {
     srand(time(NULL));
