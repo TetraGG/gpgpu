@@ -1,32 +1,25 @@
-#include "rng.h"
 #include <cmath>
 
-double boxMuller2Rand;
+#include "rng.hh"
 
-/******************************************************************************
-* Return uniformly distributed random double within range [-range,range]
-******************************************************************************/
-double uniformRandom(double range)
+double random_uniform(double range)
 {
   return (rand() / (double)RAND_MAX * 2.0 - 1.0) * range;
 }
 
-/******************************************************************************
-* Return gaussian random variable with mean "mean" and standard
-* deviation "stdDev". Uses two uniform random variables for generation of
-* a normally distributed one (Box-Muller transform)
-******************************************************************************/
-double gaussianRandom(double mean, double stdDev)
+double random_gaussian(double mean, double stddev)
 {
-  double uniform1, uniform2, w;
+  double uniform_first = 0.0;
+  double uniform_second = 0.0;
+  double w = 0.0;
 
   do {
-    uniform1 = uniformRandom(1.0);
-    uniform2 = uniformRandom(1.0);
-    w = uniform1 * uniform1 + uniform2 * uniform2;
+    uniform_first = random_uniform(1.0);
+    uniform_second = random_uniform(1.0);
+    w = uniform_first * uniform_first + uniform_second * uniform_second;
   } while ( w >= 1.0 );
 
   w = sqrt((-2.0 * log(w)) / w);
-  boxMuller2Rand = uniform2 * w * stdDev + mean;
-  return uniform1 * w * stdDev + mean;
+  box_muller = uniform_second * w * stddev + mean;
+  return uniform_first * w * stddev + mean;
 }

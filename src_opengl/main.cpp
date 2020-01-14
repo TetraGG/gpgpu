@@ -1,143 +1,95 @@
 #include <iostream>
 
-#include "main.h"
-
-#include "graphics.h"
-
-#include "rng.h"
-
-/******************************************************************************
-* Particle systems declaration
-******************************************************************************/
-Smoke smokeEmitter;
-
-/******************************************************************************
-* Current value of gravity acceleration
-******************************************************************************/
-double gravity;
-
-
-/******************************************************************************
-* Global vaiables for wind effect simulation
-******************************************************************************/
-int angle;
-double windSpeed, xWind, zWind;
+#include "main.hh"
+#include "graphics.hh"
+#include "rng.hh"
 
 int main(int argc, char* argv[])
 {
-	srand(time(NULL));
-	initParticleSystem();
-	graphics_init(argc, argv);
-	graphics_mainloop();
-	return 0;
+    srand(time(NULL));
+    particles_init();
+    graphics_init(argc, argv);
+    graphics_mainloop();
+    return 0;
 }
 
-void generic_display()
+void generic_display(void)
 {
-  graphics_setView();
-
-  graphics_clear();
-
-  spawnParticles();                     // Generate new particles to replace dead ones
-  graphics_particles();
-  progressTime();                       // Update particle coordinates and properties
-
-  graphics_refresh();
+    graphics_set_view();
+    graphics_clear();
+    particles_spawn();
+    graphics_particles();
+    particles_update();
+    graphics_refresh();
 }
 
-void initParticleSystem()
+void particles_init(void)
 {
-  // Set the initial values of particle system parameters
-  smokeEmitter.totalParticles = DEFAULT_NO_OF_PARTICLES;
-  smokeEmitter.aliveParticles = 0;
-  smokeEmitter.r = smokeEmitter.g = smokeEmitter.b = SMOKE_SHADE;
-  smokeEmitter.chaoticSpeed = SMOKE_CHAOS_SPEED_VAR;
-  gravity = DEFAULT_GRAVITY;
-  windSpeed = SMOKE_WIND_INIT_SPEED;
-  angle = SMOKE_WIND_INIT_DIRECTION;
-  computeWind();
+    fire.particles_total = PARTICLES_TOTAL;
+    fire.particles_alive = 0;
+    fire.c.r = SHADE;
+    fire.c.g = SHADE;
+    fire.c.b = SHADE;
+    fire.chaotic_speed = CHAOS_SPEED_VAR;
+    gravity = DEFAULT_GRAVITY;
+    wind.speed = WIND_INIT_SPEED;
+    wind.angle = WIND_INIT_DIRECTION;
+    compute_wind();
 }
 
-/******************************************************************************
-* Calculate the wind vector based on wind angle and speed
-******************************************************************************/
-void computeWind(void)
+void compute_wind(void)
 {
-  xWind = SMOKE_PARTICLE_MASS * windSpeed * cos(DEG_TO_RAD * angle) / 10;
-  zWind = SMOKE_PARTICLE_MASS * windSpeed * sin(DEG_TO_RAD * angle) / 10;
+    wind.direction.x = PARTICLE_MASS * wind.speed * cos(TO_RADIAN * wind.angle) / 10;
+    wind.direction.z = PARTICLE_MASS * wind.speed * sin(TO_RADIAN * wind.angle) / 10;
 }
 
-/******************************************************************************
-* Spawn particles
-******************************************************************************/
-void spawnParticles()
+void particles_spawn(void)
 {
-  // Dead particles are stored at the end of array, thus no need for 'alive'
-  // parameter for each particle
-  int index;
-
-  // Spawn smoke particles with only vertical speed being nonzero. Set their initial colour
-  // according to the current value of colour parameters (with some random noise). Particles
-  // are generated from a square area with linear distribution.
-  for (index = smokeEmitter.aliveParticles; index < smokeEmitter.totalParticles; index++)
-  {
-    smokeEmitter.particles[index].xpos = uniformRandom(SMOKE_EMITTER_SIZE) + SMOKE_EMITTER_X;
-    smokeEmitter.particles[index].ypos = SMOKE_EMITTER_Y;
-    smokeEmitter.particles[index].zpos = uniformRandom(SMOKE_EMITTER_SIZE) + SMOKE_EMITTER_Z;
-    smokeEmitter.particles[index].xvel = 0.0;
-    smokeEmitter.particles[index].yvel = gaussianRandom(SMOKE_SPEED_MEAN, SMOKE_SPEED_VAR);
-    smokeEmitter.particles[index].zvel = 0.0;
-    smokeEmitter.particles[index].r = gaussianRandom(smokeEmitter.r, SMOKE_SHADE_INIT_VAR);
-    smokeEmitter.particles[index].g = gaussianRandom(smokeEmitter.g, SMOKE_SHADE_INIT_VAR);
-    smokeEmitter.particles[index].b = gaussianRandom(smokeEmitter.b, SMOKE_SHADE_INIT_VAR);
-    smokeEmitter.aliveParticles++;
-    smokeEmitter.particles[index].alpha = gaussianRandom(SMOKE_INIT_ALHPA_MEAN, SMOKE_INIT_ALPHA_VAR);
-    smokeEmitter.particles[index].textureID = smokeEmitter.textures[index % SMOKE_TEXTURE_NUMBER];
-  }
-}
-
-void progressTime()
-{
-  int index;
-  double shadeChange;
-
-  // Update each smoke particle parameters.
-  for (index = 0; index < smokeEmitter.aliveParticles; index++)
-  {
-    // if the particle has faded out, kill it
-    if ((smokeEmitter.particles[index].r <= SMOKE_DEATH_THRES &&
-      smokeEmitter.particles[index].g <= SMOKE_DEATH_THRES &&
-      smokeEmitter.particles[index].b <= SMOKE_DEATH_THRES) ||
-      smokeEmitter.particles[index].alpha <= SMOKE_DEATH_THRES) {
-      smokeEmitter.particles[index] = smokeEmitter.particles[smokeEmitter.aliveParticles - 1];
-      smokeEmitter.aliveParticles--;
+    for (size_t index = fire.particles_alive; index < fire.particles_total; ++index)
+    {
+        fire.particles[index].position.x = random_uniform(EMITTER_SIZE) + EMITTER_X;
+        fire.particles[index].position.y = EMITTER_Y;
+        fire.particles[index].position.z = random_uniform(EMITTER_SIZE) + EMITTER_Z;
+        fire.particles[index].velocity.x = 0.0;
+        fire.particles[index].velocity.y = random_gaussian(SPEED_MEAN, SPEED_VAR);
+        fire.particles[index].velocity.z = 0.0;
+        fire.particles[index].c.r = random_gaussian(fire.c.r, SHADE_INIT_VAR);
+        fire.particles[index].c.g = random_gaussian(fire.c.g, SHADE_INIT_VAR);
+        fire.particles[index].c.b = random_gaussian(fire.c.b, SHADE_INIT_VAR);
+        fire.particles[index].c.a = random_gaussian(INIT_ALHPA_MEAN, INIT_ALPHA_VAR);
+        fire.particles[index].texture_id = fire.textures[index % TEXTURE_NUMBER];
+        fire.particles_alive++;
     }
+}
 
-    // Otherwise
-    else {
-      // Move the particle. If smoke hits the ground, make it crawl on it
-      smokeEmitter.particles[index].xpos += smokeEmitter.particles[index].xvel;
-      smokeEmitter.particles[index].zpos += smokeEmitter.particles[index].zvel;
-      smokeEmitter.particles[index].ypos += smokeEmitter.particles[index].yvel;
-      if (smokeEmitter.particles[index].ypos < SMOKE_EMITTER_Y)
-        smokeEmitter.particles[index].ypos = SMOKE_EMITTER_Y;
+void particles_update(void)
+{
+    for (size_t index = 0; index < fire.particles_alive; ++index)
+    {
+        if ((fire.particles[index].c.r <= PARTICLE_DEATH && fire.particles[index].c.g <= PARTICLE_DEATH &&
+                    fire.particles[index].c.b <= PARTICLE_DEATH) || fire.particles[index].c.a <= PARTICLE_DEATH) {
+            fire.particles_alive--;
+            fire.particles[index] = fire.particles[fire.particles_alive];
+        }
+        else
+        {
+            fire.particles[index].position.x += fire.particles[index].velocity.x;
+            fire.particles[index].position.z += fire.particles[index].velocity.z;
+            fire.particles[index].position.y += fire.particles[index].velocity.y;
+            if (fire.particles[index].position.y < EMITTER_Y)
+                fire.particles[index].position.y = EMITTER_Y;
 
-      // Apart from minor gravitational force each particle has some chaotic
-      // movement in every dimension and is affected by the wind (direction and speed)
-      // The vertical chaotic movement is slighlty faster than horizontal one
-      smokeEmitter.particles[index].xvel += gaussianRandom(SMOKE_CHAOS_SPEED_MEAN, smokeEmitter.chaoticSpeed) +
-                                            smokeEmitter.particles[index].ypos * xWind;;
-      smokeEmitter.particles[index].zvel += boxMuller2Rand + smokeEmitter.particles[index].ypos * zWind;
-      smokeEmitter.particles[index].yvel += SMOKE_PARTICLE_MASS * gravity + gaussianRandom(SMOKE_CHAOS_SPEED_MEAN,
-                                            smokeEmitter.chaoticSpeed * SMOKE_CHAOS_VERTICAL_MUL);
+            fire.particles[index].velocity.x += random_gaussian(CHAOS_SPEED_MEAN, fire.chaotic_speed) +
+                fire.particles[index].position.y * wind.direction.x;
+            fire.particles[index].velocity.z += box_muller + fire.particles[index].position.y * wind.direction.z;
+            fire.particles[index].velocity.y += PARTICLE_MASS * gravity + random_gaussian(CHAOS_SPEED_MEAN,
+                    fire.chaotic_speed * CHAOS_VERTICAL_MUL);
 
-      // Each particle fades away at slighlty different pace. It both becomes
-      // darker and more transparent
-      shadeChange = gaussianRandom(SMOKE_SHADE_CHANGE_MEAN, SMOKE_SHADE_CHANGE_VAR);
-      smokeEmitter.particles[index].r -= shadeChange;
-      smokeEmitter.particles[index].g -= shadeChange;
-      smokeEmitter.particles[index].b -= shadeChange;
-      smokeEmitter.particles[index].alpha -= SMOKE_ALPHA_CHANGE;
+            double shade = random_gaussian(SHADE_CHANGE_MEAN, SHADE_CHANGE_VAR);
+            fire.particles[index].c.r -= shade;
+            fire.particles[index].c.g -= shade;
+            fire.particles[index].c.b -= shade;
+            fire.particles[index].c.a -= ALPHA_CHANGE;
+        }
     }
-  }
 }
