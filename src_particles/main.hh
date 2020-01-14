@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "point.hh"
-
 #define POINT_SIZE 3
 #define PARTICLES_MAX 2000000
 #define PARTICLES_TOTAL 1000
@@ -43,6 +41,12 @@
 
 #define DEFAULT_GRAVITY -9.81
 #define TO_RADIAN M_PI / 180
+
+typedef struct {
+    double x;
+    double y;
+    double z;
+} point;
 
 typedef struct {
     double r;

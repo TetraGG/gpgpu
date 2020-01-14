@@ -2,36 +2,41 @@
 
 #include "graphics.hh"
 #include "main.hh"
-#include "point.hh"
 
 typedef struct {
-    point position;
-    point center;
-    point up;
+    double positionx;
+    double positiony;
+    double positionz;
+    double centerx;
+    double centery;
+    double centerz;
+    double upx;
+    double upy;
+    double upz;
 } view;
 
 view VIEW = {
-    .position.x = EMITTER_X - 400,
-    .position.y = EMITTER_Y,
-    .position.z = EMITTER_Z,
-    .center.x = EMITTER_X,
-    .center.y = EMITTER_Y + 200,
-    .center.z = EMITTER_Z,
-    .up.x = 0.0,
-    .up.y = 1.0,
-    .up.z = 0.0
+    .positionx = EMITTER_X - 400,
+    .positiony = EMITTER_Y,
+    .positionz = EMITTER_Z,
+    .centerx = EMITTER_X,
+    .centery = EMITTER_Y + 200,
+    .centerz = EMITTER_Z,
+    .upx = 0.0,
+    .upy = 1.0,
+    .upz = 0.0
 };
 
 view TOP_VIEW = {
-    .position.x = EMITTER_X,
-    .position.y = 600,
-    .position.z = EMITTER_Z,
-    .center.x = EMITTER_X,
-    .center.y = EMITTER_Y,
-    .center.z = EMITTER_Z,
-    .up.x = 0.0,
-    .up.y = 0.0,
-    .up.z = 1.0
+    .positionx = EMITTER_X,
+    .positiony = 600,
+    .positionz = EMITTER_Z,
+    .centerx = EMITTER_X,
+    .centery = EMITTER_Y,
+    .centerz = EMITTER_Z,
+    .upx = 0.0,
+    .upy = 0.0,
+    .upz = 1.0
 };
 
 view *current_view = &VIEW;
@@ -90,7 +95,7 @@ void graphics_set_view(void)
 {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(current_view->position.x, current_view->position.y, current_view->position.z,
-            current_view->center.x, current_view->center.y, current_view->center.z,
-            current_view->up.x, current_view->up.y, current_view->up.z);
+    gluLookAt(current_view->positionx, current_view->positiony, current_view->positionz,
+            current_view->centerx, current_view->centery, current_view->centerz,
+            current_view->upx, current_view->upy, current_view->upz);
 }

@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "main.hh"
 #include "graphics.hh"
+#include "main.hh"
 #include "rng.hh"
 
 emitter fire;
