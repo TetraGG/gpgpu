@@ -16,7 +16,7 @@ SRC = main.cpp \
 
 BIN = particle
 OBJS = $(SRC:.cpp=.o)
-
+SHADERS = shaders/vert.spv shaders/frag.spv
 
 BIN_OPENGL = opengl
 BIN_VULKAN = vulkan
@@ -43,6 +43,8 @@ $(BIN_VULKAN): $(OBJS_PARTICLES)
 %.spv: shader.%
 	glslc -o $@ $<
 
+test: $(BIN)
+	./$(BIN)
 
 .PHONY: test clean
 
