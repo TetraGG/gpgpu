@@ -3,7 +3,7 @@ CXXFLAGS = -std=c++2a -Wall -pedantic -Wextra
 LDFLAGS = `pkg-config --static --libs glfw3` -lvulkan
 VPATH = src/:src_particles/
 
-SRC = main.cpp \
+SRC = src/main.cpp \
       vulkan_application.cpp \
       validation_layers.cpp \
       devices.cpp \
