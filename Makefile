@@ -23,7 +23,7 @@ BIN_VULKAN = vulkan
 OBJS_PARTICLES = src_particles/main.o rng.o
 
 
-all: $(BIN) $(SHADERS)
+all: $(BIN) $(SHADERS) particles
 
 
 $(BIN): $(OBJS)
