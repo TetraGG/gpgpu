@@ -49,4 +49,4 @@ test: $(BIN)
 .PHONY: test clean
 
 clean:
-	$(RM) $(BIN) $(OBJS) $(SHADERS) $(BIN_OPENGL) $(BIN_VULKAN) $(OBJS_OPENGL) $(OBJS_VULKAN)
+	$(RM) $(BIN) $(OBJS) $(SHADERS) $(BIN_OPENGL) $(BIN_VULKAN) $(OBJS_OPENGL) $(OBJS_VULKAN) rng.o src_particles/main.o
