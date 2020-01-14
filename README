@@ -1,0 +1,32 @@
+# Comparaison Vulkan/OpenGL
+
+Projet ayant pour but de comparer Vulkan et OpenGL dans leur API et leur fonctionnement.
+
+## Vulkan
+
+Exemple Vulkan pour comprendre son fonctionnement et son utilisation.
+
+/src
+/shader
+
+### Build
+
+```
+make
+./particle
+```
+
+## Simulation
+
+Simulation OpenGL/Vulkan
+
+/src_particles
+
+### Build
+
+```
+cd src_particles
+make opengl #make vulkan
+./opengl
+```
+
